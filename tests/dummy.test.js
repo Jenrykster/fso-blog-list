@@ -35,7 +35,7 @@ describe('total likes', () => {
   });
 });
 
-describe.only('favorite blog', () => {
+describe('favorite blog', () => {
   test('of empty list is undefined', () => {
     expect(listHelper.favoriteBlog([])).toBe(undefined);
   });
@@ -63,5 +63,32 @@ describe.only('favorite blog', () => {
     expect(listHelper.favoriteBlog([exampleBlog, exampleBlog2, exampleBlog3])).toEqual(
       expectedAnswer,
     );
+  });
+});
+
+describe('most blogs', () => {
+  test('of a empty list is undefined', () => {
+    expect(listHelper.mostBlogs([])).toBe(undefined);
+  });
+
+  test("when list has only one blog is that blog's author", () => {
+    const expectedAnswer = {
+      author: exampleBlog.author,
+      blogs: 1,
+    };
+
+    expect(listHelper.mostBlogs([exampleBlog])).toEqual(expectedAnswer);
+  });
+
+  test('of a list with multiple blogs is the one with the most likes', () => {
+    const exampleBlog2 = { ...exampleBlog, author: 'Test' };
+    const exampleBlog3 = { ...exampleBlog, author: 'Test' };
+
+    const expectedAnswer = {
+      author: exampleBlog2.author,
+      blogs: 2,
+    };
+
+    expect(listHelper.mostBlogs([exampleBlog, exampleBlog2, exampleBlog3])).toEqual(expectedAnswer);
   });
 });
