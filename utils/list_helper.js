@@ -20,8 +20,38 @@ const favoriteBlog = (blogs = []) => {
     };
   }, initialValue);
 };
+
+const mostBlogs = (blogs = []) => {
+  if (blogs.length === 0) return undefined;
+
+  const authorsWithNumOfBlogs = blogs.reduce((prev, curr) => {
+    const existingAuthorIndex = prev.findIndex((item) => item.author === curr.author);
+
+    let newArr = [...prev];
+
+    if (existingAuthorIndex >= 0) newArr[existingAuthorIndex].blogs += 1;
+    newArr = prev.concat({
+      author: curr.author,
+      blogs: 1,
+    });
+
+    return newArr;
+  }, []);
+
+  console.log(authorsWithNumOfBlogs);
+
+  return authorsWithNumOfBlogs.reduce(
+    (prev, curr) => {
+      if (prev.blogs > curr.blogs) return prev;
+      return curr;
+    },
+    { blogs: 0 },
+  );
+};
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
+  mostBlogs,
 };
