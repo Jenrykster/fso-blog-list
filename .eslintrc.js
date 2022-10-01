@@ -5,7 +5,14 @@ module.exports = {
     node: true,
   },
   extends: 'airbnb-base',
-  overrides: [],
+  overrides: [
+    {
+      files: ['**/*.test.js'],
+      env: {
+        jest: true,
+      },
+    },
+  ],
   parserOptions: {
     ecmaVersion: 'latest',
   },
